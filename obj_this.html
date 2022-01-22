@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <script>
+            var name = 'global'
+            var person = {
+                name:'px',
+                getName(){
+                    const self = this;
+                    return function(){
+                        return self.name
+                    }
+                }
+            }
+
+            var person2 = {
+                name:'px',
+                getName:()=>{
+                    const self = this;
+                    return function(){
+                        return self.name
+                    }
+                }
+            }
+            const getName=person.getName()
+            const nameResult = getName() 
+            alert(nameResult)
+
+            const getName2=person2.getName()
+            const nameResult2 = getName2() 
+            alert(nameResult2)
+        </script>
+    </body>
+</html>

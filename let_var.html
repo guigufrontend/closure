@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <script>
+            // 以下结果是什么？
+            
+            for (let index = 0; index < 5; index++) {
+                setTimeout(()=>{
+                    console.log(index)
+                },50)   
+            }
+            // 0 1 2 3 4
+            for (var index = 0; index < 5; index++) {
+                setTimeout(()=>{
+                    console.log(index)
+                },0)   
+            }
+            // 55555
+            for (var index = 0; index < 5; index++) {
+                (function(index){
+                    setTimeout(()=>{
+                    console.log(index)
+                },50)   
+                })(index)
+            }
+        </script>
+    </body>
+</html>

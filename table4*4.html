@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <style>
+            #container{
+                width: 200px;
+                height: 200px;
+                border-radius: 5px;
+                background-color: purple;
+            }
+            #container>div{
+                width: 40px;
+                height: 40px;
+                background-color: #fff;
+                margin-top: 8px;
+                margin-left: 8px;
+                float: left;
+                border-radius: 4px;
+                line-height: 40px;
+                text-align: center;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='container'>
+        </div>
+        <script>
+            // 动态为div添加16个子div
+            var w=4;
+            var h=4
+            const container = document.querySelector('#container')
+            const fragment = document.createDocumentFragment()
+            // 方案1
+            // for(var i=0;i<w; i++){
+            //     for(var j=0; j<4; j++){
+            //         const el = document.createElement('div');
+            //         el.innerHTML = `(${i},${j})`
+            //         el.onclick=(function(i, j){
+            //             var num = 0;
+            //             return function(){
+            //                 num++
+            //                 alert(`(${i},${j}) 点击${num}次`)
+            //             }
+            //         })(i,j)
+            //         fragment.appendChild(el)
+            //     }
+            // }
+            // container.appendChild(fragment)
+
+            // 方案2
+            function addTable(){
+                var data=[
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                ]
+                for(var i=0;i<w; i++){
+                    for(var j=0; j<4; j++){
+                        const el = document.createElement('div');
+                        el.innerHTML = `(${i},${j})`
+                        el.onclick = (function(i, j){
+                            return function(){
+                                data[i][j]++
+                                alert(`(${i},${j}) 点击${data[i][j]}次`)
+                            }
+                        })(i, j)
+                        fragment.appendChild(el)
+                    }
+                }
+                container.appendChild(fragment)
+            }
+            addTable()
+        </script>
+    </body>
+</html>

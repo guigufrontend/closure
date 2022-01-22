@@ -1,0 +1,46 @@
+<html>
+    <body>
+        <script>
+            // 用原生的call() 来模拟实现bind
+            // 用es6 写法
+            // Function.bind = function(context, ...otherParams){
+            //     // 获取caller 方法1
+            //     // const caller = arguments.caller
+            //     // 获取caller 方法2
+            //     const caller = this;
+            //     return function(args){
+            //         return caller.call(context, ...otherParams, ...args)
+            //     }
+            // }
+            // es6之前写法
+            Function.bind = function(context){
+                const caller = this;
+                const otherParams = Array.prototype.slice.call(context, 1)
+                return function(){
+                    const paramsArr = Array.prototype.slice.call(arguments)
+                    const args = otherParams.concat(paramsArr)
+                    return caller.call(context, ...otherParams, ...args)
+                }
+            }
+            var name = 'global'
+            var person={
+                name:'px'
+            }
+            var person2={
+                name:'px2'
+            }
+            function alertName(age, address ){
+                alert(this.name+'_'+age+'_'+address)
+            }
+            alertName('company')
+            alertName.bind(person)(16, 'home')
+            alertName.bind(person2)(17, 'school')
+
+            const getUserInfo = alertName.bind(person, 18)
+            getUserInfo('company')
+            getUserInfo('home')
+            getUserInfo('school')
+
+        </script>
+    </body>
+</html>
